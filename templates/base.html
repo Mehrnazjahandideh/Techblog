@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/post-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/log_style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+                
+    <style>
+        
+      
+        .profile-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .profile-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #2d2d2d;
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown-content a {
+            color: #f4f4f4;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            transition: background 0.3s ease;
+        }
+        .dropdown-content button{
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;      
+          }
+
+        .dropdown-content a:hover {
+            background: #8A2BE2;
+        }
+
+        .profile-menu:hover .dropdown-content {
+            display: block;
+        }
+
+      .post-detail {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+        background: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        color: #ddd;
+    }
+
+    /* --- هدر پست --- */
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #444;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .post-header h1 {
+        font-size: 2rem;
+        color: #fff;
+    }
+
+    /* --- دکمه‌های اکشن (ادیت و حذف) --- */
+    .post-actions {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-danger {
+        background: #e74c3c;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: #c0392b;
+        transform: scale(1.05);
+    }
+
+    .btn-primary {
+        background: #3498db;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #2980b9;
+        transform: scale(1.05);
+    }
+
+    /* --- اطلاعات متا پست --- */
+    .post-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: #aaa;
+        margin-top: 10px;
+    }
+
+    .post-meta i {
+        margin-right: 5px;
+    }
+
+    /* --- تصویر شاخص --- */
+    .featured-image img {
+        width: 100%;
+        border-radius: 10px;
+        margin: 20px 0;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* --- محتوای پست --- */
+    .post-body {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #ddd;
+    }
+
+    /* --- فرم کامنت --- */
+    .comment-form {
+        background: #2c2c2c;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-top: 2rem;
+    }
+
+    .comment-form h3 {
+        color: #fff;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #bbb;
+    }
+
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 6px;
+        border: 1px solid #444;
+        background: #1a1a1a;
+        color: white;
+        resize: vertical;
+        font-size: 1rem;
+    }
+
+    .btn-success {
+        background: #2ecc71;
+        color: white;
+    }
+
+    .btn-success:hover {
+        background: #27ae60;
+        transform: scale(1.05);
+    }
+
+    /* --- نمایش کامنت‌ها --- */
+    .comments-list {
+        margin-top: 2rem;
+    }
+
+    .comment {
+        background: #262626;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+        position: relative; /* برای قرارگیری آیکن‌ها */
+    }
+
+    .comment:hover {
+        transform: scale(1.02);
+    }
+
+    .comment p {
+        margin: 0;
+    }
+
+    .comment strong {
+        color: #fff;
+    }
+
+    /* --- گزینه‌های Edit و Delete در کامنت‌ها --- */
+    .comment-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 8px;
+    }
+
+    .comment-actions a {
+        color: #bbb;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .comment-actions a:hover {
+        color: #fff;
+    }
+
+    </style>
+</head>
+<body>
+    <div id="page-container">
+    <header>
+        <nav>
+            <div class="logo">TechBlog</div>
+            <ul class="nav-links">
+                <li><a href="{% url 'post_list' %}" class="active">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+{% if user.is_authenticated %}                <li>
+                    <div class='profile-menu'>
+                        <button class='profile-button'>
+                            <i class='fas fa-user-circle'></i>
+                            {{user.username}}
+                        </button>
+                        <div class='dropdown-content'>
+                            <a href="{% url 'login' %}">log in</a>
+                            <a href="{% url 'signup' %}">sign up</a>
+                            <a href="{% url 'password_change' %}">password_change</a>
+                            {% comment %} <a href="{% url 'logout' %}" onclik='event.preventDefault();document.getElementbyId("logout-form").submit()'>Logout ({{ user.username }})</a> {% endcomment %}
+                            <form  method="post" action="{% url 'logout' %}" style='display"none;'>
+                            
+                               {% csrf_token %}
+                               <button type='submit'>log out</button>
+                            </form>
+                        </div>
+                </div>
+                </li>         
+
+                {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+    </header>
+    <div id="content-wrap">
+    
+    {% block content %} {% endblock content %}
+        
+</div>
+    <footer>
+        <p>&copy; 2024 TechBlog. All rights reserved.</p>
+    </footer>
+
+{% block script %}
+    
+{% endblock script %}
+    
+</div>
+</body>
+</html>

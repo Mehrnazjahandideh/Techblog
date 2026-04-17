@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Sign up{% endblock title %}
+
+{% block content %}
+
+    <div id="content-wrap">
+    <main>
+        <div class="register-section">
+            <h2>Create an Account</h2>
+            <form method="POST" class="register-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                                        {{form.username}}
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                                        {{form.email}}
+
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                                        {{form.password1}}
+
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                                        {{form.password2}}
+
+                </div>
+                <button type="submit" class="submit-btn">Sign up</button>
+            </form>
+            <p class="register-footer">
+                Already have an account? <a href="{% url 'login' %}" >Log in</a>.
+            </p>
+        </div>
+    </main>
+    </div>
+
+{% endblock content %}
