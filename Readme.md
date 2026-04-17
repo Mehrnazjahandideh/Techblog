@@ -38,4 +38,6 @@ Dieses Projekt ist ein Lernprojekt und Teil meines Portfolios im Bereich Webentw
 Screenshots:
 
 Hier sind einige Screenshots der Webseite.
-
+![Tech Blog login.](https://github.com/Mehrnazjahandideh/Techblog/blob/main/screenshot/Tech%20Blog%20login.jpeg))
+![Tech Blog](https://github.com/Mehrnazjahandideh/Techblog/blob/main/screenshot/Tech%20Blog.jpeg)
+![Tech blog like](https://github.com/Mehrnazjahandideh/Techblog/blob/main/screenshot/Tech%20blog%20like.jpeg)
